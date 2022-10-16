@@ -20,7 +20,7 @@ const categoriaController = {
             },
             include: {
                 model: Produto,
-                as: "produto-categoria",
+                as: "produtoCategoria",
                 required:true
 
             }

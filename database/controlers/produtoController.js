@@ -2,7 +2,7 @@ const { sequelize, Produto, Categoria } = require('../models/index')
 
 
 const produtoController = {
-    todos: function (req, res, next) {
+    todos: function (req, res) {
         res.set('Access-Control-Allow-Origin', '*');
 
         Produto.findAll().then(result => {
@@ -10,7 +10,7 @@ const produtoController = {
         })
     },
 
-    produtoCategoria: function (req, res, next) {
+    produtoCategoria: function (req, res) {
         res.set('Access-Control-Allow-Origin', '*');
 
         Produto.findAll({
@@ -25,7 +25,20 @@ const produtoController = {
             .then(result => {
                 res.json(result.map(a => a.toJSON()))
             })
+    },
+
+    findProduct: function(req,res) {
+        res.set('Access-Control-Allow-Origin', '*');
+
+        Produto.findOne({ where: { id: req.params.id }
+            
+
+        }).then(result => {
+            res.json(result.toJSON())
+        })
     }
+
+
 
 }
 

@@ -8,5 +8,5 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/login', usuarioController.criar)
+router.post('/cadastro', usuarioController.criar)
 module.exports = router;
