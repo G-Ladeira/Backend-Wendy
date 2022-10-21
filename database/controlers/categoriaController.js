@@ -14,17 +14,22 @@ const categoriaController = {
         res.set('Access-Control-Allow-Origin', '*');
         const {id} = req.params;
 
-        const categoria = Categoria.findOne({
-            where:{
-                id: id
+        Produto.findAll({
+            where: {
+                categorias_id: id
             },
-            include: {
-                model: Produto,
-                as: "produtoCategoria",
-                required:true
+            // include: {
+            //     model: Categoria,
+            //     as: "categoria-produto",
+            //     categorias_id: req.params,
+            //     required: true
 
-            }
-        }).then(result=> {return res.json(result.toJSON())} )
+            // },
+            include: ["produtoImagem"]
+        })
+            .then(result => {
+                res.json(result.map(a => a.toJSON()))
+            })
             
             // return res.json(categoria.toJSON())
            

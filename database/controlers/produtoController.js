@@ -17,13 +17,17 @@ const produtoController = {
         res.set('Access-Control-Allow-Origin', '*');
 
         Produto.findAll({
-            include: {
-                model: Categoria,
-                as: "categoria-produto",
-                categorias_id: req.params,
-                required: true
+            where: {
+                categorias_id: req.params
+            },
+            // include: {
+            //     model: Categoria,
+            //     as: "categoria-produto",
+            //     categorias_id: req.params,
+            //     required: true
 
-            }
+            // },
+            include: ["produtoImagem"]
         })
             .then(result => {
                 res.json(result.map(a => a.toJSON()))
