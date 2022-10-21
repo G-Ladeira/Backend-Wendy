@@ -1,11 +1,14 @@
-const { sequelize, Produto, Categoria } = require('../models/index')
+
+const { sequelize, Produto, Categoria, Imagem } = require('../models/index')
 
 
 const produtoController = {
     todos: function (req, res) {
         res.set('Access-Control-Allow-Origin', '*');
 
-        Produto.findAll().then(result => {
+        Produto.findAll({
+            include: ["produtoImagem"]
+        }).then(result => {
             res.json(result.map(a => a.toJSON()))
         })
     },
@@ -18,7 +21,7 @@ const produtoController = {
                 model: Categoria,
                 as: "categoria-produto",
                 categorias_id: req.params,
-                required:true
+                required: true
 
             }
         })
@@ -27,12 +30,14 @@ const produtoController = {
             })
     },
 
-    findProduct: function(req,res) {
+    findProduct: function (req, res) {
         res.set('Access-Control-Allow-Origin', '*');
 
-        Produto.findOne({ where: { id: req.params.id }
-            
-
+       Produto.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: ["produtoImagem"]
         }).then(result => {
             res.json(result.toJSON())
         })

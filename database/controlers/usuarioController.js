@@ -3,8 +3,9 @@ const {sequelize, Usuario}= require('../models/index')
 
 const usuarioController = {
     criar: async(req,res) =>{
-
+        res.set('Access-Control-Allow-Origin', '*');
         let result = await Usuario.create ({
+            
             nome:req.body.nome,
             email:req.body.email,
             telefone:req.body.telefone,
@@ -13,7 +14,7 @@ const usuarioController = {
         return res.json(result)
     },
     alterar: async(req,res) =>{
-
+        res.set('Access-Control-Allow-Origin', '*');
         let result = await Usuario.update ({
             nome:req.body.nome,
             email:req.body.email,
