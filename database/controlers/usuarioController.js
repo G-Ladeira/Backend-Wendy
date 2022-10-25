@@ -22,7 +22,6 @@ const usuarioController = {
         // Check if user exists
         const userExists = await Usuario.findOne({where:{email:email},raw:true})
 
-        console.log(userExists)
         
         if (userExists) {
             return res.status(422).json({msg: 'Email já está em uso'})
@@ -58,7 +57,8 @@ const usuarioController = {
             senha:req.body.senha
         })
         return res.json(result)
-    }, login: async(req,res) =>{
+    },
+    login: async(req,res) =>{
         const {email, senha} = req.body
 
         const userExists = await Usuario.findOne({where:{email:email},raw:true})
@@ -71,8 +71,15 @@ const usuarioController = {
         if (!checkPassword) {
             return res.status(422).json({ msg: 'Senha inválida'})
         }
+        
+            const token = jwt.sign(
+              {
+                id: userExists.id,
+              },
+              "XABLAU"
+            );
 
-        return res.status(200).json({msg: 'Usuario Logado'})
+        return res.status(200).json({msg: 'Usuario Logado', token})
 
     }
 
