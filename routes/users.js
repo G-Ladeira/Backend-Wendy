@@ -9,4 +9,5 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/cadastro', usuarioController.criar)
+router.post('/login', usuarioController.login)
 module.exports = router;

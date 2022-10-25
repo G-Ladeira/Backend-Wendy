@@ -1,0 +1,8 @@
+let result = await Usuario.create ({
+            
+            nome:req.body.nome,
+            email:req.body.email,
+            telefone:req.body.telefone,
+            senha:req.body.senha
+            
+        })
